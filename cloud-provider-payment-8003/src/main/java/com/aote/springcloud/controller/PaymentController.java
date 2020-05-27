@@ -6,11 +6,9 @@ import com.aote.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import java.util.List;
+import java.util.UUID;
 
 /**
  * @Author aote
@@ -28,8 +26,10 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-    @Autowired
-    private DiscoveryClient discoveryClient;
+    @RequestMapping(value="/payment/zk")
+    public String paymentzk(){
+        return "zk serverPort:"+serverPort+",uuid="+UUID.randomUUID().toString();
+    }
 
     @PostMapping(value = "/payment/create")
     public CommonResult create(@RequestBody Payment payment){
@@ -52,15 +52,6 @@ public class PaymentController {
         }else {
             return new CommonResult(400,"没有对应记录，查询Id："+id,null);
         }
-    }
-
-    @GetMapping(value = "/payment/discovery")
-    public Object discovery(){
-        List<String> services = discoveryClient.getServices();
-        for(String item : services) {
-            log.info("*****element:"+item);
-        }
-        return this.discoveryClient;
     }
 
 }
