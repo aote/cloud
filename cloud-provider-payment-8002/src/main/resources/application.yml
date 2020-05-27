@@ -1,9 +1,8 @@
 server:
-  port: 8001
+  port: 8002
 
 spring:
   application:
-    # 相同业务集群，应用名称必须相同
     name: cloud-payment-service
   datasource:
     # 当前数据源操作类型
