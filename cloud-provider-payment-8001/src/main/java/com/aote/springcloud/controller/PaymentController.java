@@ -46,7 +46,6 @@ public class PaymentController {
     public CommonResult<Payment> getPaymentById(@PathVariable("id")Long id){
         Payment payment = paymentService.getPaymentById(id);
         log.info("*****查询结果："+payment);
-        System.out.println("1111222221");
         if(payment != null){
             return new CommonResult(200,"查询成功，serverPort="+serverPort,payment);
         }else {
@@ -61,6 +60,12 @@ public class PaymentController {
             log.info("*****element:"+item);
         }
         return this.discoveryClient;
+    }
+
+    // 返回端口号
+    @GetMapping(value = "/payment/lb")
+    public String getPaymentLB(){
+        return serverPort;
     }
 
 }
