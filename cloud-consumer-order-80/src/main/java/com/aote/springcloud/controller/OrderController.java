@@ -38,19 +38,19 @@ public class OrderController {
     @Resource
     private DiscoveryClient discoveryClient;
 
-    @GetMapping("consumer/payment/create")
+    @GetMapping("/consumer/payment/create")
     public CommonResult<Payment> create(Payment payment){
         return restTemplate.postForObject(PAYMENT_URL+"/payment/create",payment, CommonResult.class);
     }
 
-    @GetMapping("consumer/payment/get/{id}")
+    @GetMapping("/consumer/payment/get/{id}")
     public CommonResult<Payment> getPayment(@PathVariable("id") Long id){
         return restTemplate.getForObject(PAYMENT_URL+"/payment/get/"+id,CommonResult.class);
     }
 
     // getForObject相当于返回json，getForEntity返回responseEntity
     // 参考文档写restTemplate.getForEntity
-    @GetMapping("consumer/payment/getEntity/{id}")
+    @GetMapping("/consumer/payment/getEntity/{id}")
     public CommonResult<Payment> getPaymentForEntity(@PathVariable("id") Long id){
         ResponseEntity<CommonResult> entity =
                 restTemplate.getForEntity(PAYMENT_URL+"/payment/get/"+id,CommonResult.class);
